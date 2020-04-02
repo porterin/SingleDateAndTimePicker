@@ -26,10 +26,10 @@ ext {
     sdk = 28
     minSdk = 14
 
-    github = 'https://github.com/florent37/SingleDateAndTimePicker'
+    github = 'https://github.com/porterin/SingleDateAndTimePicker'
 
-    libraryGroup = 'com.github.florent37'
+    libraryGroup = 'in.porter.florent37'
     libraryName = 'singledateandtimepicker'
-    libraryVersion = "2.2.0"
+    libraryVersion = "2.2.0.0"
     libraryDescription = 'SingleDateAndTimePicker'
 }
