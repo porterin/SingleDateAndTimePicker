@@ -1,0 +1,36 @@
+apply plugin: 'maven-publish'
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+publishing {
+    publications {
+        bar(MavenPublication) {
+            groupId rootProject.ext.libraryGroup
+            artifactId rootProject.ext.libraryName
+            version rootProject.ext.libraryVersion
+            artifact(sourcesJar)
+            artifact("$buildDir/outputs/aar/${rootProject.ext.libraryName}-release.aar")
+        }
+    }
+    repositories {
+        maven {
+            url "s3://porter-maven/releases"
+            authentication {
+                awsIm(AwsImAuthentication)
+            }
+        }
+    }
+}
